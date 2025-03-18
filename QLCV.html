@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Công việc</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; text-align: center; 
+        }
+        .task-list { 
+            list-style: none; padding: 0; 
+        }
+        .task-item {
+            margin: 5px 0; 
+        }
+        button { 
+            margin-left: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <h2>Quản lý Công việc</h2>
+    <input type="text" id="taskInput" placeholder="Nhập công việc..."><button onclick="addTask()">Thêm</button>
+    <ul id="taskList" class="task-list"></ul>
+    <script>
+let tasks = [];
+
+function renderTasks() {
+    const taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
+    tasks.forEach((task, index) => {
+        taskList.innerHTML += `<li class="task-item">${task} 
+            <button onclick="editTask(${index})">Sửa</button>
+            <button onclick="deleteTask(${index})">Xóa</button>
+        </li>`;
+    });
+}
+
+function addTask() {
+    const taskInput = document.getElementById("taskInput");
+    if (taskInput.value.trim() !== "") {
+        tasks.push(taskInput.value.trim());
+        taskInput.value = "";
+        renderTasks();
+    }
+}
+
+function editTask(index) {
+    const newTask = prompt("Nhập công việc mới:", tasks[index]);
+    if (newTask !== null) {
+        tasks[index] = newTask;
+        renderTasks();
+    }
+}
+
+function deleteTask(index) {
+    if (confirm("Bạn có chắc muốn xóa công việc này?")) {
+        tasks.splice(index, 1);
+        renderTasks();
+    }
+}
+    </script>
+</body>
+</html>
