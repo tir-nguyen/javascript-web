@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm số lần xuất hiện của từ</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h2>Đếm số lần xuất hiện của các từ</h2>
+    <textarea id="textInput" placeholder="Nhập đoạn văn bản" rows="5" cols="50"></textarea>
+    <br>
+    <button onclick="countWords()">Đếm từ</button>
+    <h3>Kết quả:</h3>
+    <ul id="resultList"></ul>
+</body>
+<script>
+    function countWords() {
+    const textInput = document.getElementById("textInput").value;
+    const resultList = document.getElementById("resultList");
+
+    const words = textInput.toLowerCase().replace(/[^\w\s]/g, "").split(/\s+/);
+
+    const wordCount = {};
+    words.forEach(word => {
+        if (word) {
+            wordCount[word] = (wordCount[word] || 0) + 1;
+        }
+    });
+
+    resultList.innerHTML = "";
+    for (const [word, count] of Object.entries(wordCount)) {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${word}: ${count}`;
+        resultList.appendChild(listItem);
+    }
+}
+</script>
+</html>
